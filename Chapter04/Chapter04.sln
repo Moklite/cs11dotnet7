@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorLib", "Calculator
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorLibUnitTests", "CalculatorLibUnitTests\CalculatorLibUnitTests.csproj", "{AF07DD86-A461-4BCE-A5F8-9216692784B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallStackExceptionHandlingLib", "CallStackExceptionHandlingLib\CallStackExceptionHandlingLib.csproj", "{6A4F5E1F-EA00-43D9-8CE4-E1AEC96A7271}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallStackExceptionHandling", "CallStackExceptionHandling\CallStackExceptionHandling.csproj", "{3A310DCB-4C5C-43A0-B54D-C869F4D39C75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{AF07DD86-A461-4BCE-A5F8-9216692784B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF07DD86-A461-4BCE-A5F8-9216692784B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF07DD86-A461-4BCE-A5F8-9216692784B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A4F5E1F-EA00-43D9-8CE4-E1AEC96A7271}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A4F5E1F-EA00-43D9-8CE4-E1AEC96A7271}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A4F5E1F-EA00-43D9-8CE4-E1AEC96A7271}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A4F5E1F-EA00-43D9-8CE4-E1AEC96A7271}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A310DCB-4C5C-43A0-B54D-C869F4D39C75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A310DCB-4C5C-43A0-B54D-C869F4D39C75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A310DCB-4C5C-43A0-B54D-C869F4D39C75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A310DCB-4C5C-43A0-B54D-C869F4D39C75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
