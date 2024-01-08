@@ -99,5 +99,149 @@ bob.FavoriteAncientWonder =
 //var (name2, dob2, fav2) = bob;
 //WriteLine($"Deconstructed: {name2}, {dob2}, {fav2}");
 
-WriteLine(bob.SayHello());
-WriteLine(bob.SayHello("Emily"));
+//WriteLine(bob.SayHello());
+//WriteLine(bob.SayHello("Emily"));
+
+//WriteLine(bob.OptionalParameters());
+
+//WriteLine(bob.OptionalParameters("Jump!", 98.5));
+
+//WriteLine(bob.OptionalParameters(number: 52.7, command: "Hide!"));
+
+//WriteLine(bob.OptionalParameters("Poke!", active: false));
+
+//int a = 10;
+//int b = 20;
+//int c = 30;
+//WriteLine($"Before: a = {a}, b = {b}, c = {c}");
+//bob.PassingParameters(a, ref b, out c);
+//WriteLine($"After: a = {a}, b = {b}, c = {c}");
+
+//int d = 10;
+//int e = 20;
+//WriteLine($"Before: d = {d}, e = {e}, f doesn't exist yet!");
+//// simplified C# 7.0 or later syntax for the out parameter
+//bob.PassingParameters(d, ref e, out int f);
+//WriteLine($"After: d = {d}, e = {e}, f = {f}");
+
+Person sam = new()
+{
+	Name = "Sam",
+	DateOfBirth = new(1969, 6, 25)
+};
+//WriteLine(sam.Origin);
+//WriteLine(sam.Greeting);
+//WriteLine(sam.Age);
+
+//sam.FavoriteIceCream = "Chocolate Fudge";
+//WriteLine($"Sam's favorite ice-cream flavor is {sam.FavoriteIceCream}.");
+//string color = "Red";
+//try
+//{
+//	sam.FavoritePrimaryColor = color;
+//	WriteLine($"Sam's favorite primary color is {sam.
+//   FavoritePrimaryColor}.");
+//}
+//catch (Exception ex)
+//{
+//	WriteLine("Tried to set {0} to '{1}': {2}",
+//	nameof(sam.FavoritePrimaryColor), color, ex.Message);
+//}
+
+//Book book = new() 
+//{
+//	Isbn = "978-1803237800",
+//	Title = "C# 11 and .NET 7 - Modern Cross-Platform Development Fundamentals"
+//};
+
+//WriteLine("{0}: {1} written by {2} has {3:N0} pages.",
+// book.Isbn, book.Title, book.Author, book.PageCount);
+
+//Book book = new(isbn: "978-1803237800", title: "C# 11 and .NET 7 - Modern Cross-Platform Development Fundamentals")
+//{
+// Author = "Mark J. Price",
+// PageCount = 821
+//};
+
+//Person lamech = new() { Name = "Lamech" };
+//Person adah = new() { Name = "Adah" };
+//Person zillah = new() { Name = "Zillah" };
+//lamech.Marry(adah);
+//Person.Marry(zillah, lamech);
+//WriteLine($"{lamech.Name} is married to {lamech.Spouse?.Name ??
+//"nobody"}");
+//WriteLine($"{adah.Name} is married to {adah.Spouse?.Name ?? "nobody"}");
+//WriteLine($"{zillah.Name} is married to {zillah.Spouse?.Name ??
+//"nobody"}");
+//// call instance method
+//Person baby1 = lamech.ProcreateWith(adah);
+//baby1.Name = "Jabal";
+//WriteLine($"{baby1.Name} was born on {baby1.DateOfBirth}");
+//// call static method
+//Person baby2 = Person.Procreate(zillah, lamech);
+//baby2.Name = "Tubalcain";
+//WriteLine($"{lamech.Name} has {lamech.Children.Count} children.");
+//WriteLine($"{adah.Name} has {adah.Children.Count} children.");
+//WriteLine($"{zillah.Name} has {zillah.Children.Count} children.");
+
+//for (int i = 0; i < lamech.Children.Count; i++)
+//{
+//	WriteLine(format: "{0}'s child #{1} is named \"{2}\".",
+//	arg0: lamech.Name, arg1: i, arg2: lamech[i].Name);
+//}
+
+//int number = 5; // change to -1 to make the exception handling code execute
+//try
+//{
+//	WriteLine($"{number}! is {Person.Factorial(number)}");
+//}
+//catch (Exception ex)
+//{
+//	WriteLine($"{ex.GetType()} says: {ex.Message} number was {number}.");
+//}
+
+//Passenger[] passengers = {
+// new FirstClassPassenger { AirMiles = 1_419, Name = "Suman" },
+// new FirstClassPassenger { AirMiles = 16_562, Name = "Lucy" },
+// new BusinessClassPassenger { Name = "Janice" },
+// new CoachClassPassenger { CarryOnKG = 25.7, Name = "Dave" },
+//  new CoachClassPassenger { CarryOnKG = 0, Name = "Amit" },
+//};
+//foreach (Passenger passenger in passengers)
+//{
+//	decimal flightCost = passenger switch
+//	{
+//		FirstClassPassenger p when p.AirMiles > 35000 => 1500M,
+//		FirstClassPassenger p when p.AirMiles > 15000 => 1750M,
+//		FirstClassPassenger _ => 2000M,
+//		BusinessClassPassenger _ => 1000M,
+//		CoachClassPassenger p when p.CarryOnKG < 10.0 => 500M,
+//		CoachClassPassenger _ => 650M,
+//		_ => 800M
+//	};
+//	WriteLine($"Flight costs {flightCost:C} for {passenger}");
+//}
+
+ImmutablePerson jeff = new()
+{
+	FirstName = "Jeff",
+	LastName = "Winger"
+};
+//jeff.FirstName = "Geoff";
+
+ImmutableVehicle car = new()
+{
+	Brand = "Mazda MX-5 RF",
+	Color = "Soul Red Crystal Metallic",
+	Wheels = 4
+};
+
+ImmutableVehicle repaintedCar = car
+ with
+{ Color = "Polymetal Grey Metallic" };
+WriteLine($"Original car color was {car.Color}.");
+WriteLine($"New car color is {repaintedCar.Brand}.");
+
+ImmutableAnimal oscar = new("Oscar", "Labrador");
+var (who, what) = oscar; // calls Deconstruct method
+WriteLine($"{who} is a {what}.");
