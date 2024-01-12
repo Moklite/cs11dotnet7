@@ -1,4 +1,5 @@
 ﻿using Packt.Shared;
+using System.Xml.Linq;
 
 Person harry = new()
 {
@@ -38,29 +39,57 @@ harry.WriteToConsole();
 // arg1: lookupIntString[key]);
 
 // assign a method to the Shout delegate
-harry.Shout += Harry_Shout;
-harry.Shout += Harry_Shout2;
-// call the Poke method that raises the Shout event
-harry.Poke();
-harry.Poke();
-harry.Poke();
-harry.Poke();
+//harry.Shout += Harry_Shout;
+//harry.Shout += Harry_Shout2;
+//// call the Poke method that raises the Shout event
+//harry.Poke();
+//harry.Poke();
+//harry.Poke();
+//harry.Poke();
 
-Person?[] people =
+//Person?[] people =
+//{
+// null,
+// new() { Name = "Simon" },
+// new() { Name = "Jenny" },
+// new() { Name = "Adam" },
+// new() { Name = null },
+//  new() { Name = "Richard" }
+//};
+//OutputPeopleNames(people, "Initial list of people:");
+//Array.Sort(people);
+//OutputPeopleNames(people,
+// "After sorting using Person's IComparable implementation:");
+
+//DisplacementVector dv1 = new(3, 5);
+//DisplacementVector dv2 = new(-2, 7);
+//DisplacementVector dv3 = dv1 + dv2;
+//WriteLine($"({dv1.X}, {dv1.Y}) + ({dv2.X}, {dv2.Y}) = ({dv3.X},{ dv3.Y})");
+Employee john = new()
 {
- null,
- new() { Name = "Simon" },
- new() { Name = "Jenny" },
- new() { Name = "Adam" },
- new() { Name = null },
-  new() { Name = "Richard" }
+	Name = "John Jones",
+    DateOfBirth = new(year: 1990, month: 7, day: 28)
 };
-OutputPeopleNames(people, "Initial list of people:");
-Array.Sort(people);
-OutputPeopleNames(people,
- "After sorting using Person's IComparable implementation:");
+john.WriteToConsole();
 
-DisplacementVector dv1 = new(3, 5);
-DisplacementVector dv2 = new(-2, 7);
-DisplacementVector dv3 = dv1 + dv2;
-WriteLine($"({dv1.X}, {dv1.Y}) + ({dv2.X}, {dv2.Y}) = ({dv3.X},{ dv3.Y})");
+john.EmployeeCode = "JJ001";
+john.HireDate = new(year: 2014, month: 11, day: 23);
+WriteLine($"{john.Name} was hired on {john.HireDate:dd/MM/yy}");
+
+Employee aliceInEmployee = new()
+{ Name = "Alice", EmployeeCode = "AA123" };
+Person aliceInPerson = aliceInEmployee;
+aliceInEmployee.WriteToConsole();
+aliceInPerson.WriteToConsole();
+WriteLine(aliceInEmployee.ToString());
+WriteLine(aliceInPerson.ToString());
+
+try
+{
+	john.TimeTravel(when: new(1999, 12, 31));
+	john.TimeTravel(when: new(1950, 12, 25));
+}
+catch (PersonException ex)
+{
+	WriteLine(ex.Message);
+}
