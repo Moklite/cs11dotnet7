@@ -1,10 +1,62 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Packt.Shared;
 
-//QueryingCategories();
+QueryingCategories();
 //FilteredIncludes();
-QueryingProducts();
+//QueryingProducts();
+//GetRandomProduct();
 
+
+
+
+static void GetRandomProduct()
+{
+	using (Northwind db = new())
+	{
+		SectionTitle("Get a random product.");
+		int? rowCount = db.Products?.Count();
+		if (rowCount == null)
+		{
+			Fail("Products table is empty.");
+			return;
+		}
+		Product? p = db.Products?.FirstOrDefault(
+		p => p.ProductId == (int)(EF.Functions.Random() * rowCount));
+		if (p == null)
+		{
+			Fail("Product not found.");
+			return;
+		}
+		WriteLine($"Random product: {p.ProductId} {p.ProductName}");
+	}
+}
+
+static void QueryingWithLike()
+{
+	using(Northwind db = new())
+	{
+		SectionTitle("Pattern matching with LIKE.");
+		Write("Enter part of a product name: ");
+		string? input = ReadLine();
+		if (string.IsNullOrWhiteSpace(input))
+		{
+			Fail("You did not enter part of a product name.");
+			return;
+		}
+		IQueryable<Product>? products = db.Products?
+		.Where(p => EF.Functions.Like(p.ProductName, $"%{input}%"));
+		if ((products is null) || (!products.Any()))
+		{
+			Fail("No products found.");
+			return;
+		}
+		foreach (Product p in products)
+		{
+			WriteLine("{0} has {1} units in stock. Discontinued? {2}",
+			p.ProductName, p.Stock, p.Discontinued);
+		}
+	}
+}
 
 static void QueryingProducts()
 {
@@ -21,7 +73,7 @@ static void QueryingProducts()
 			input = ReadLine();
 		} while (!decimal.TryParse(input, out price));
 
-		IQueryable<Product>? products = db.Products?.Where(p => p.Cost > price).OrderByDescending(p => p.Cost);
+		IQueryable<Product>? products = db.Products?.TagWith("filtering products and ordering by price").Where(p => p.Cost > price).OrderByDescending(p => p.Cost);
 
 		if ((products is null) || (!products.Any()))
 		{
@@ -33,6 +85,8 @@ static void QueryingProducts()
 			WriteLine(
 			"{0}: {1} costs {2:$#,##0.00} and has {3} in stock.",
 			p.ProductId, p.ProductName, p.Cost, p.Stock);
+
+			Info($"ToQueryString: {products.ToQueryString()}");
 		}
 	}
 }

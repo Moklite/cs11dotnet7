@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Packt.Shared;
 
@@ -18,6 +19,12 @@ public class Northwind : DbContext
 		ForegroundColor = previousColor;
 
 		optionsBuilder.UseSqlServer(connection);
+
+		optionsBuilder.LogTo(WriteLine, // Console
+		new[] { RelationalEventId.CommandExecuting })
+		.EnableSensitiveDataLogging();
+
+		optionsBuilder.UseLazyLoadingProxies();
 	}
 
 	protected override void OnModelCreating(
@@ -36,5 +43,8 @@ ModelBuilder modelBuilder)
 			.Property(product => product.Cost)
 			.HasConversion<double>();
 		}
+
+		modelBuilder.Entity<Product>()
+ .HasQueryFilter(p => !p.Discontinued);
 	}
 }
