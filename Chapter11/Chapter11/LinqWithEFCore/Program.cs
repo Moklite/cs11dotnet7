@@ -1,16 +1,35 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Packt.Shared;
+using System.Xml.Linq;
 
 
 //FilterAndSort();
 //JoinCategoriesAndProducts();
 //GroupJoinCategoriesAndProducts();
 //AggregateProducts();
+//PagingProducts();
+OutputProductsAsXml();
 
 
 //functions
+
+static void OutputProductsAsXml()
+{
+    SectionTitle("Output products as XML");
+    using (Northwind db = new())
+    {
+        Product[] productsArray = db.Products.ToArray();
+        XElement xml = new("products",
+        from p in productsArray
+        select new XElement("product",
+        new XAttribute("id", p.ProductId),
+        new XAttribute("price", p.UnitPrice),
+        new XElement("name", p.ProductName)));
+        WriteLine(xml.ToString());
+    }
+}
+
 static void PagingProducts()
 {
     SectionTitle("Paging products");
