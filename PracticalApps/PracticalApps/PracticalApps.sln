@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Common.UnitTests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Web", "Northwind.Web\Northwind.Web.csproj", "{D3CBCCED-9C71-41A4-AD1F-5CD152628BE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Razor.Employees", "Northwind.Razor.Employees\Northwind.Razor.Employees.csproj", "{D5DA1406-D556-4485-9A10-16FC0A9FB925}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Razor.Employees", "Northwind.Razor.Employees\Northwind.Razor.Employees.csproj", "{D5DA1406-D556-4485-9A10-16FC0A9FB925}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Mvc", "Northwind.Mvc\Northwind.Mvc.csproj", "{0312A54A-8807-4F55-86D3-7852DA2F9232}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{D5DA1406-D556-4485-9A10-16FC0A9FB925}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5DA1406-D556-4485-9A10-16FC0A9FB925}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5DA1406-D556-4485-9A10-16FC0A9FB925}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0312A54A-8807-4F55-86D3-7852DA2F9232}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0312A54A-8807-4F55-86D3-7852DA2F9232}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0312A54A-8807-4F55-86D3-7852DA2F9232}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0312A54A-8807-4F55-86D3-7852DA2F9232}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
