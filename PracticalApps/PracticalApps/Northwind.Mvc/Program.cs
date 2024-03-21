@@ -14,6 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>() // enable role management
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
@@ -31,6 +32,12 @@ else
 // if you are using SQLite, default is ..\Northwind.db
 builder.Services.AddNorthwindContext();
 
+builder.Services.AddOutputCache(options =>
+{
+    options.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(20);
+    options.AddPolicy("views", p => p.SetVaryByQuery("alertstyle"));
+});
+
 var app = builder.Build();
 
 // Section 3 -
@@ -47,15 +54,24 @@ else
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
 
+app.UseOutputCache();
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}")
+    .CacheOutput("views");
+
 app.MapRazorPages();
+
+app.MapGet("/notcached", () => DateTime.Now.ToString());
+
+app.MapGet("/cached", () => DateTime.Now.ToString()).CacheOutput();
 
 app.Run();

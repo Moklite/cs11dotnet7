@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Northwind.Mvc.Models;
 using Packt.Shared;
 using System.Diagnostics;
@@ -16,6 +18,7 @@ namespace Northwind.Mvc.Controllers
             db = context;
         }
 
+        [ResponseCache(Duration = 10 /* seconds */, Location = ResponseCacheLocation.Any)]
         public IActionResult Index()
         {
             HomeIndexViewModel model = new
@@ -28,8 +31,9 @@ namespace Northwind.Mvc.Controllers
             return View(model);
         }
 
-        public IActionResult ProductDetail(int? id)
+        public IActionResult ProductDetail(int? id, string alertstyle = "success")
         {
+            ViewData["alertstyle"] = alertstyle;
             if (!id.HasValue)
             {
                 return BadRequest("You must pass a product ID in the route, for example, /Home/ProductDetail/21");
@@ -42,6 +46,8 @@ namespace Northwind.Mvc.Controllers
             return View(model); // pass model to view and then return result
         }
 
+        [Route("private")]
+        [Authorize(Roles = "Administrators")]
         public IActionResult Privacy()
         {
             return View();
@@ -68,6 +74,23 @@ namespace Northwind.Mvc.Controllers
              .Select(error => error.ErrorMessage)
             );
             return View(model);
+        }
+
+        public IActionResult ProductsThatCostMoreThan(decimal? price)
+        {
+            if (!price.HasValue)
+            {
+                return BadRequest("You must pass a product price in the query string, for example, / Home / ProductsThatCostMoreThan ? price = 50");
+            }
+            IEnumerable<Product> model = db.Products.Include(p => p.Category)
+            .Include(p => p.Supplier)
+            .Where(p => p.UnitPrice > price);
+            if (!model.Any())
+            {
+                return NotFound(  $"No products cost more than {price:C}.");
+            }
+            ViewData["MaxPrice"] = price.Value.ToString("C");
+            return View(model); // pass model to view
         }
     }
 }

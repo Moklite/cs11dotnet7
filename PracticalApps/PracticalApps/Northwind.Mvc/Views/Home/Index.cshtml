@@ -14,8 +14,8 @@
 
 @if (Model is not null)
 {
-<div id="categories" class="carousel slide" data-bs-ride="carousel"
- data-bs-interval="3000" data-keyboard="true">
+    <div id="categories" class="carousel slide" data-bs-ride="carousel"
+     data-bs-interval="3000" data-keyboard="true">
         <ol class="carousel-indicators">
             @for (int c = 0; c < Model.Categories.Count; c++)
             {
@@ -75,6 +75,12 @@
         <p class="lead">
             We have had @Model?.VisitorCount visitors this month.
         </p>
+
+        h3>Query products by price</h3>
+        <form asp-action="ProductsThatCostMoreThan" method="GET">
+            <input name="price" placeholder="Enter a product price" />
+            <input type="submit" />
+        </form>
         @if (Model is not null)
         {
             <h2>Products</h2>
