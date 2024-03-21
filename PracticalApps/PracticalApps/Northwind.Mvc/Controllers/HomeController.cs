@@ -19,26 +19,26 @@ namespace Northwind.Mvc.Controllers
         }
 
         [ResponseCache(Duration = 10 /* seconds */, Location = ResponseCacheLocation.Any)]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             HomeIndexViewModel model = new
                 (
                  VisitorCount: Random.Shared.Next(1, 100),
-                 Categories: db.Categories.ToList(),
-                 Products: db.Products.ToList()
+                 Categories: await db.Categories.ToListAsync(),
+                 Products: await db.Products.ToListAsync()
                 );
 
             return View(model);
         }
 
-        public IActionResult ProductDetail(int? id, string alertstyle = "success")
+        public async Task<IActionResult> ProductDetail(int? id, string alertstyle = "success")
         {
             ViewData["alertstyle"] = alertstyle;
             if (!id.HasValue)
             {
                 return BadRequest("You must pass a product ID in the route, for example, /Home/ProductDetail/21");
             }
-            Product? model = db.Products.SingleOrDefault(p => p.ProductId == id);
+            Product? model = await db.Products.SingleOrDefaultAsync(p => p.ProductId == id);
             if (model is null)
             {
                 return NotFound($"ProductId {id} not found.");
